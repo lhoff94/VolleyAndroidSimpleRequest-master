@@ -18,7 +18,6 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 class ServerRequest {
-    lateinit var responseJson: JSONObject
 
     fun disableSSLCertificateChecking() {
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
@@ -50,11 +49,13 @@ class ServerRequest {
         }
 
     }
-
+/**
     fun getJsonFromServer(queue: RequestQueue, url: String): JSONObject {
         sendRequestToServer(queue, url)
         return responseJson
-    }
+    }**/
+
+
 
     fun sendRequestToServer(queue: RequestQueue, url: String) {
         // Instantiate the RequestQueue.
@@ -64,12 +65,15 @@ class ServerRequest {
                 Response.Listener<String> { response ->
 
                     var strResp = response.toString()
-                    responseJson= JSONObject (strResp)
+
                 },
                 Response.ErrorListener { error ->
-                    Log.e("VOLLEY", error.message)
+                    Log.e("VOLLEY", error.message.toString())
+
                 })
         queue.add(stringReq)
     }
+
+
 
 }

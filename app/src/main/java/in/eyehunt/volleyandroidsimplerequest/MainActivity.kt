@@ -12,14 +12,12 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private var textView: TextView? = null
-    val presenter: MainPresenter by lazy{MainPresenter()}
+    val presenter: MainPresenter by lazy{MainPresenter(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         textView = findViewById<TextView>(R.id.tv_users)
-
-
 
         getUsers()
     }
@@ -30,9 +28,7 @@ class MainActivity : AppCompatActivity() {
     fun getUsers(){
         // Instantiate the RequestQueue.
         val queue = VolleyRequester.getInstance(this.applicationContext).requestQueue
-        val url: String = "https://kis20kapp.vetkis.fu-berlin.de:8084/swp/tierklinik/patientRecord/owner?ownerFirtsName=Nico"
-        presenter.evaluateForm(queue)
-        showResponses(serverRequestModel.responseJson)
+        presenter.evaluateForm(queue, "","","",0,0)
     }
 
     fun showResponses(serverAnswer: JSONObject?){
