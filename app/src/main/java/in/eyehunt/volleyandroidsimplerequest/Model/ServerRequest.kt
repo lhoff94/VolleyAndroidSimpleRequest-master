@@ -4,10 +4,6 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONArray
-import org.json.JSONObject
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.security.cert.CertificateException
@@ -49,15 +45,10 @@ class ServerRequest {
         }
 
     }
-/**
-    fun getJsonFromServer(queue: RequestQueue, url: String): JSONObject {
-        sendRequestToServer(queue, url)
-        return responseJson
-    }**/
 
 
 
-    fun sendRequestToServer(queue: RequestQueue, url: String) {
+    fun sendRequestToServer(queue: RequestQueue, url: String, showResponse: (String) -> Unit ) {
         // Instantiate the RequestQueue.
         // Request a string response from the provided URL.
 
@@ -65,7 +56,7 @@ class ServerRequest {
                 Response.Listener<String> { response ->
 
                     var strResp = response.toString()
-
+                    showResponse(strResp)
                 },
                 Response.ErrorListener { error ->
                     Log.e("VOLLEY", error.message.toString())

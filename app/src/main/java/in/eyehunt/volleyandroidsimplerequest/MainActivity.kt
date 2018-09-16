@@ -3,11 +3,16 @@ package `in`.eyehunt.volleyandroidsimplerequest
 import `in`.eyehunt.volleyandroidsimplerequest.Model.ServerRequest
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
-import com.android.volley.toolbox.Volley
-import de.fu_berlin.mi.tierklinik.VolleyRequester
 import org.json.JSONArray
 import org.json.JSONObject
+import `in`.eyehunt.volleyandroidsimplerequest.R
+import android.content.Intent
+import android.view.View
+import android.webkit.RenderProcessGoneDetail
+import android.widget.ProgressBar
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,18 +23,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         textView = findViewById<TextView>(R.id.tv_users)
-
-        getUsers()
+        val searchButton = findViewById<Button>(R.id.buttonSearch) as Button
+        val progressBar: ProgressBar = findViewById<ProgressBar>(R.id.progressBar) as ProgressBar
+        presenter.evaluateForm(
+                "",
+                "",
+                "",
+                "81036",
+                "")
     }
 
-
-
-    // function for network call
-    fun getUsers(){
-        // Instantiate the RequestQueue.
-        val queue = VolleyRequester.getInstance(this.applicationContext).requestQueue
-        presenter.evaluateForm(queue, "","","",0,0)
+    fun disableButton(button : Button){
+        button.visibility = View.GONE
     }
+    fun enableButton(button : Button){
+        button.visibility = View.VISIBLE
+    }
+    fun disableProgressBar(progressBar : Button){
+        progressBar.isEnabled = false
+        progressBar.visibility = View.GONE
+    }
+    fun enableProgressBar(progressBar : Button){
+        progressBar.isEnabled = true
+        progressBar.visibility = View.VISIBLE
+    }
+
 
     fun showResponses(serverAnswer: JSONObject?){
         val jsonArray: JSONArray = serverAnswer!!.getJSONArray("content")
