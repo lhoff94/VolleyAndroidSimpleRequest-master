@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="baseurl">https://kis20kapp.vetkis.fu-berlin.de:8084/swp/tierklinik</string>
-    <string name="requestAnimalById">/patientRecord/animal/id?animalId=</string>
+    <string name="requestAdAnimalById">/patientRecord/animal/id?animalId=</string>
     <string name="requestCaseById">/patientRecord/case?caseId=</string>
-    <string name="requestOwnerByFirstName">/patientRecord/owner?ownerFirtsName=</string>
-    <string name="requestOwnerByLastName">/patientRecord/owner?ownerLastName=</string>
+    <string name="requestOwnerList">/patientRecord/owner</string>
     <string name="requestAnimalByName">/patientRecord/animal?animalName=</string>
 </resources>
