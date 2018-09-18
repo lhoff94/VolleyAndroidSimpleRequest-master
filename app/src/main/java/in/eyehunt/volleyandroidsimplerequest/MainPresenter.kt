@@ -1,16 +1,12 @@
 package `in`.eyehunt.volleyandroidsimplerequest
 
-import `in`.eyehunt.volleyandroidsimplerequest.Model.RequestGenerator
-import `in`.eyehunt.volleyandroidsimplerequest.Model.ServerRequest
+import `in`.eyehunt.volleyandroidsimplerequest.Model.SearchFragmentSucheModel
 import android.content.Intent
 import de.fu_berlin.mi.tierklinik.VolleyRequester
-import org.json.JSONArray
-import org.json.JSONObject
-import org.xml.sax.Parser
 
 
 class MainPresenter(var view: MainActivity){
-    val backendData :RequestGenerator by lazy { RequestGenerator(view) }
+    val backendData :SearchFragmentSucheModel by lazy { SearchFragmentSucheModel(view) }
     fun evaluateForm(
             ownerFirstNameString: String,
             ownerLastNameString: String,
@@ -20,15 +16,22 @@ class MainPresenter(var view: MainActivity){
         val queue = VolleyRequester.getInstance(view.applicationContext).requestQueue
         val url = "https://kis20kapp.vetkis.fu-berlin.de:8084/swp/tierklinik/patientRecord/owner?ownerFirtsName=Nico"
 
-        if (caseIdString != "") {
+        if (caseIdString.isNotBlank()) {
             backendData.getCase(caseIdString, ({ response: Int -> receiveCase(response) }))
-        } else {
-            if (patientIdString != "") {
-                backendData.getPatient(patientIdString, ({ response: Int -> receivePatient(response) }))
+            return
+        }
+        if (patientIdString.isNotBlank()) {
+            backendData.getPatient(patientIdString, ({ response: Int -> receivePatient(response) }))
+            return
+        }
+
+        if (patientString.isNotBlank()){
+            if (ownerFirstNameString.isNotBlank() and ownerLastNameString.isNotBlank()){
+                backendData.getPatientList()
             }
         }
-    }
 
+    }
     private fun receivePatient(response: Int) {
         val intent = Intent(view, MainActivity::class.java)
         intent.putExtra("patient", response)

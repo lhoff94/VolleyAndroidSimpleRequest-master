@@ -5,7 +5,7 @@ import de.fu_berlin.mi.tierklinik.VolleyRequester
 import org.json.JSONArray
 import org.json.JSONObject
 
-class RequestGenerator(val view: MainActivity){
+class SearchFragmentSucheModel(val view: MainActivity){
     val serverRequestModel: ServerRequest by lazy{ ServerRequest() }
 
     fun getOwnerList(){}
