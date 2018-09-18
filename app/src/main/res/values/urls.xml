@@ -4,5 +4,5 @@
     <string name="requestAdAnimalById">/patientRecord/animal/id?animalId=</string>
     <string name="requestCaseById">/patientRecord/case?caseId=</string>
     <string name="requestOwnerList">/patientRecord/owner</string>
-    <string name="requestAnimalByName">/patientRecord/animal?animalName=</string>
+    <string name="requestPatientList">/patientRecord/animal/owner</string>
 </resources>
